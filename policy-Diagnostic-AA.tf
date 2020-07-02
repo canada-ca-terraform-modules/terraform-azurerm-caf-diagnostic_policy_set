@@ -7,6 +7,6 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-AA" {
   mode         = "All"
   display_name = "Deploy-Diagnostics-AA"
   description  = "Apply diagnostic settings for Azure Automation Accounts - Log Analytics"
-  parameters   = file("./policies/Deploy-Diagnostics-parameters.json")
-  policy_rule  = file("./policies/Deploy-Diagnostics-AA.json")
+  parameters   = file("policies/Deploy-Diagnostics-parameters.json")
+  policy_rule  = file("policies/Deploy-Diagnostics-AA.json")
 }

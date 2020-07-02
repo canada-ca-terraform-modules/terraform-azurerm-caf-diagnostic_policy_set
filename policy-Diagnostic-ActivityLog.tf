@@ -7,6 +7,6 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-ActivityLog" {
   mode         = "All"
   display_name = "Deploy-Diagnostics-ActivityLog"
   description  = "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics"
-  policy_rule  = file("./policies/Deploy-Diagnostics-ActivityLog.json")
-  parameters   = file("./policies/Deploy-Diagnostics-parameters.json")
+  policy_rule  = file("policies/Deploy-Diagnostics-ActivityLog.json")
+  parameters   = file("policies/Deploy-Diagnostics-parameters.json")
 }
