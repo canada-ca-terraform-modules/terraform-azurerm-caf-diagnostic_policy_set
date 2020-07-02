@@ -11,7 +11,7 @@ locals {
   }
 }
 
-resource "azurerm_policy_definition" "Deploy-Diagnostics-AA" {
+resource "azurerm_policy_definition" "Deploy-Diagnostics" {
   for_each = local.policies
 
   name         = each.key

@@ -20,7 +20,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
                     "value": "${var.log_analytics_workspace.name}-"
                 }
             },
-            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-AA.id}"
+            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics[Deploy-Diagnostics-AA].id}"
         },
         {
             "parameters": {
@@ -31,7 +31,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
                     "value": "${var.log_analytics_workspace.name}-"
                 }
             },
-            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-ActivityLog.id}"
+            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics[Deploy-Diagnostics-ActivityLog].id}"
         },
         {
             "parameters": {
