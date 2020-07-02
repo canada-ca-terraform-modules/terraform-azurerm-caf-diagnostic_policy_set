@@ -67,7 +67,7 @@ PARAMETERS
                 {
                   "type": "Microsoft.Compute/virtualMachineScaleSets/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/${var.log_analytics_workspace.name}-setByPolicy')]",
                   "location": "[parameters('location')]",
                   "dependsOn": [],
                   "properties": {
