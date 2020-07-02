@@ -15,6 +15,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-AA.id}"
