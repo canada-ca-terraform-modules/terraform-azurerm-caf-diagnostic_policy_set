@@ -1,0 +1,18 @@
+{
+  "logAnalytics": {
+    "type": "String",
+    "metadata": {
+      "displayName": "Log Analytics workspace",
+      "description": "Select the Log Analytics workspace from dropdown list",
+      "strongType": "omsWorkspace"
+    }
+  },
+  "prefix": {
+    "type": "String",
+    "metadata": {
+      "displayName": "Log Analytics workspace name prefix",
+      "description": "(Optional) Provide a the Log Analytics workspace name prefix"
+    },
+    "defaultValue": ""
+  }
+}

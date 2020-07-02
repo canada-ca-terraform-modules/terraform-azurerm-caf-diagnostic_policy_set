@@ -16,6 +16,14 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-Recovery_Vault" {
         "description": "Select the Log Analytics workspace from dropdown list",
         "strongType": "omsWorkspace"
       }
+    },
+    "prefix": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Log Analytics workspace name prefix",
+        "description": "(Optional) Provide a the Log Analytics workspace name prefix"
+      },
+      "defaultValue": ""
     }
   }
 PARAMETERS
@@ -83,6 +91,9 @@ PARAMETERS
                 "logAnalytics": {
                   "type": "string"
                 },
+                "prefix": {
+                  "type": "string"
+                },
                 "location": {
                   "type": "string"
                 }
@@ -92,7 +103,7 @@ PARAMETERS
                 {
                   "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', '${var.log_analytics_workspace.name}-setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/, parameters('prefix'), 'setByPolicy')]",
                   "dependsOn": [],
                   "properties": {
                     "workspaceId": "[parameters('logAnalytics')]",
@@ -132,6 +143,9 @@ PARAMETERS
             "parameters": {
               "logAnalytics": {
                 "value": "[parameters('logAnalytics')]"
+              },
+              "prefix": {
+                "value": "[parameters('prefix')]"
               },
               "location": {
                 "value": "[field('location')]"

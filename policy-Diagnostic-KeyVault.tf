@@ -50,6 +50,9 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-KeyVault" {
                 "logAnalytics": {
                   "type": "string"
                 },
+                "prefix": {
+                  "type": "string"
+                },
                 "location": {
                   "type": "string"
                 }
@@ -59,7 +62,7 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-KeyVault" {
                 {
                   "type": "Microsoft.KeyVault/vaults/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/${var.log_analytics_workspace.name}-setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/, parameters('prefix'), 'setByPolicy')]",
                   "location": "[parameters('location')]",
                   "dependsOn": [],
                   "properties": {
@@ -90,6 +93,9 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-KeyVault" {
               "logAnalytics": {
                 "value": "[parameters('logAnalytics')]"
               },
+              "prefix": {
+                "value": "[parameters('prefix')]"
+              },
               "location": {
                 "value": "[field('location')]"
               },
@@ -112,6 +118,14 @@ POLICY_RULE
         "description": "Select the Log Analytics workspace from dropdown list",
         "strongType": "omsWorkspace"
       }
+    },
+    "prefix": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Log Analytics workspace name prefix",
+        "description": "(Optional) Provide a the Log Analytics workspace name prefix"
+      },
+      "defaultValue": ""
     }
   }
 PARAMETERS
