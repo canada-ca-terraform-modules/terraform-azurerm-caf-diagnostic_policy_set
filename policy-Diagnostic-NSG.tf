@@ -58,7 +58,7 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics-NSG" {
                 {
                   "type": "Microsoft.Network/networkSecurityGroups/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/, parameters('prefix'), 'setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/,' parameters('prefix'), 'setByPolicy')]",
                   "location": "[parameters('location')]",
                   "dependsOn": [],
                   "properties": {

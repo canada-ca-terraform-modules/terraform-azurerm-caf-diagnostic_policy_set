@@ -78,7 +78,7 @@ PARAMETERS
                 {
                   "type": "Microsoft.Compute/virtualMachines/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/, parameters('prefix'), 'setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/,' parameters('prefix'), 'setByPolicy')]",
                   "location": "[parameters('location')]",
                   "dependsOn": [],
                   "properties": {

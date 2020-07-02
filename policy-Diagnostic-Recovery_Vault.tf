@@ -103,7 +103,7 @@ PARAMETERS
                 {
                   "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
                   "apiVersion": "2017-05-01-preview",
-                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/, parameters('prefix'), 'setByPolicy')]",
+                  "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/,' parameters('prefix'), 'setByPolicy')]",
                   "dependsOn": [],
                   "properties": {
                     "workspaceId": "[parameters('logAnalytics')]",
