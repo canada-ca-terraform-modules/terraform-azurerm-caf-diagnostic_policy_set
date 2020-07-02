@@ -1,5 +1,4 @@
 # Apply Diagnostics Policies on a Subscription
-Sets one or more resource groups, each of them in a specific Azure region.
 
 Reference the module to a specific version (recommended):
 ```hcl

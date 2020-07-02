@@ -15,6 +15,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-AA.id}"
@@ -23,6 +26,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-ActivityLog.id}"
@@ -31,6 +37,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-KeyVault.id}"
@@ -39,6 +48,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-NIC.id}"
@@ -47,6 +59,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-NSG.id}"
@@ -55,6 +70,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-Recovery_Vault.id}"
@@ -63,6 +81,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-VNET.id}"
@@ -71,6 +92,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-VM.id}"
@@ -79,6 +103,9 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "parameters": {
                 "logAnalytics": {
                     "value": "${var.log_analytics_workspace.id}"
+                },
+                "prefix": {
+                    "value": "${var.log_analytics_workspace.name}-"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics-VMSS.id}"
