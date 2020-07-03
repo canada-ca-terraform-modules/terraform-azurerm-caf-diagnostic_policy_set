@@ -18,6 +18,7 @@ module Project-Diagnostic-Policy {
 | log_analytics_workspace | object | None    | (Required) The log analytics workspace object where to send the diagnostics logs. Changing this forces a new resource to be created. |
 | env                     | string | None    | (Required) env name                                                                                                                  |
 | userDefinedString       | string | None    | (Required) userDefinedString to be Used.                                                                                             |
+| deploy                  | bool   | true    | (Optional) Should the module be deployed                                                                                             |
 
 ## Parameters
 

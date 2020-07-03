@@ -34,7 +34,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "Deploy-Diagnostics" {
-  for_each = local.policies
+  for_each = var.deploy ? local.policies : {}
 
   name         = each.key
   policy_type  = "Custom"
@@ -46,6 +46,7 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics" {
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
+  count        = var.deploy ? 1 : 0
   name         = local.policy_set_name
   policy_type  = "Custom"
   display_name = local.policy_set_name
@@ -156,7 +157,7 @@ POLICY_DEFINITIONS
 }
 
 resource "azurerm_policy_assignment" "policy_assignment" {
-  # count                = var.deployOptionalFeatures.deny_publicips_on_nics ? 1 : 0
+  count                = var.deploy ? 1 : 0
   name                 = local.policy_set_name
   location             = var.log_analytics_workspace.location
   scope                = data.azurerm_subscription.primary.id
