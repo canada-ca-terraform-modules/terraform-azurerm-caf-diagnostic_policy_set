@@ -3,5 +3,5 @@ output "policy_set_definition" {
 }
 
 output "policy_assignment" {
-  value = var.deploy ? azurerm_policy_assignment.policy_assignment[0] : null
+  value = var.deploy ? azurerm_policy_assignment.policy_assignment : null
 }
