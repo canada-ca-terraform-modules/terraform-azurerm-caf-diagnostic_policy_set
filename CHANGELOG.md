@@ -15,3 +15,12 @@ FEATURES:
 IMPROVEMENTS:
 
 BUGS:
+
+## v0.1.5 (July 2020)
+
+FEATURES: 
+* **new feature:**  Add deploy variable support
+
+IMPROVEMENTS:
+
+BUGS:

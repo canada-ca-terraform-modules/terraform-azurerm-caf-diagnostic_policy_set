@@ -11,3 +11,9 @@ variable "userDefinedString" {
   description = "User defined string for the module"
   type        = string
 }
+
+variable "deploy" {
+  description = "Should resources be deployed"
+  type        = bool
+  default     = true
+}
