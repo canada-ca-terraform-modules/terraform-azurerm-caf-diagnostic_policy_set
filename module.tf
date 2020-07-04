@@ -45,17 +45,14 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics" {
   policy_rule  = file("${path.module}/policies/${each.key}.json")
 }
 
-data "template_file" "Deploy-Diagnostics-policySetDefinition" {
-  template = file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json")
-}
-
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   count              = var.deploy ? 1 : 0
   name               = local.policy_set_name
   policy_type        = "Custom"
   display_name       = local.policy_set_name
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
-  policy_definitions = <<POLICY_DEFINITIONS
+  policy_definitions = template_file(file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json"))
+  /*<<POLICY_DEFINITIONS
     [
         {
             "parameters": {
@@ -158,6 +155,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         }
     ]
 POLICY_DEFINITIONS
+*/
 }
 
 resource "azurerm_policy_assignment" "policy_assignment" {
