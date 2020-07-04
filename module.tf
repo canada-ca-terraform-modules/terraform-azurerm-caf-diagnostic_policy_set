@@ -69,7 +69,6 @@ PARAMETERS
                 },
                 "prefix": {
                     "value": "[parameters('prefix')]"
-                    "default": ""
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
