@@ -73,7 +73,7 @@ PARAMETERS
                     "value": "[parameters('prefix')]"
                 }
             },
-            "policyDefinitionId": "[concat(subscription().subscriptionId, '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
+            "policyDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
         },
         {
             "parameters": {
