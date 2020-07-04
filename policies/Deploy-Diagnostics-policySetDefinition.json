@@ -1,0 +1,101 @@
+[
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "[concat('/subscriptions/', field('subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/', 'Deploy-Diagnostics-AA')]"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-ActivityLog"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-KeyVault"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NIC"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NSG"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-Recovery_Vault"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VNET"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VM"].id}"
+  },
+  {
+    "parameters": {
+      "logAnalytics": {
+        "value": "[parameters('logAnalytics')]"
+      },
+      "prefix": {
+        "value": "[parameters('prefix')]"
+      }
+    },
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VMSS"].id}"
+  }
+]
