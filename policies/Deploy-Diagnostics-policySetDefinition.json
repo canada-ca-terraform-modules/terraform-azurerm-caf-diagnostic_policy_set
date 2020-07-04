@@ -8,7 +8,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
     },
     {
         "parameters": {
@@ -19,7 +19,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-ActivityLog"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-ActivityLog"].id}"
     },
     {
         "parameters": {
@@ -30,7 +30,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-KeyVault"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-KeyVault"].id}"
     },
     {
         "parameters": {
@@ -41,7 +41,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NIC"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-NIC"].id}"
     },
     {
         "parameters": {
@@ -52,7 +52,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NSG"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-NSG"].id}"
     },
     {
         "parameters": {
@@ -63,7 +63,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-Recovery_Vault"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-Recovery_Vault"].id}"
     },
     {
         "parameters": {
@@ -74,7 +74,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VNET"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-VNET"].id}"
     },
     {
         "parameters": {
@@ -85,7 +85,7 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VM"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-VM"].id}"
     },
     {
         "parameters": {
@@ -96,6 +96,6 @@
                 "value": "[parameters('prefix')]"
             }
         },
-        "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VMSS"].id}"
+        "policyDefinitionId": "${Deploy-Diagnostics["Deploy-Diagnostics-VMSS"].id}"
     }
 ]

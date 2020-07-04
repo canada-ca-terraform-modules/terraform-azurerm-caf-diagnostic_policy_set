@@ -51,7 +51,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   policy_type        = "Custom"
   display_name       = local.policy_set_name
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
-  policy_definitions = templatefile(file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json"))
+  policy_definitions = templatefile(file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json"), { Deploy-Diagnostics = azurerm_policy_definition.Deploy-Diagnostics})
   /*<<POLICY_DEFINITIONS
     [
         {
