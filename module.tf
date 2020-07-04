@@ -62,7 +62,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
                     "value": "${var.log_analytics_workspace.name}-"
                 }
             },
-            "policyDefinitionId": "[concat('/subscriptions/', field('subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/', 'Deploy-Diagnostics-AA')]"
+            "policyDefinitionId": "[concat('/subscriptions/', field('Microsoft.Subscription/SubscriptionDefinitions/subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/', 'Deploy-Diagnostics-AA')]"
         },
         {
             "parameters": {
