@@ -53,11 +53,16 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   parameters         = <<PARAMETERS
   {
     "logAnalytics": {
-        "type": "String"
+        "type": "String",
+        "defaultValue": ""
     },
     "prefix": {
         "type": "String",
         "defaultValue": ""
+    },
+    "subscriptionID": {
+        "type": "String",
+        "defaultValue": "[field('Microsoft.Subscription/SubscriptionDefinitions/subscriptionId']"
     }
   }
 PARAMETERS
@@ -72,7 +77,7 @@ PARAMETERS
                     "value": "[parameters('prefix')]"
                 }
             },
-            "policyDefinitionId": "[concat(field('Microsoft.Subscription/SubscriptionDefinitions/subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
+            "policyDefinitionId": "[concat(parameters('subscriptionID'), '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
         },
         {
             "parameters": {
