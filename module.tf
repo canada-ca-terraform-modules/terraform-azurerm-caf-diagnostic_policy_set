@@ -50,18 +50,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   name               = local.policy_set_name
   policy_type        = "Custom"
   display_name       = local.policy_set_name
-  parameters         = <<PARAMETERS
-  {
-    "logAnalytics": {
-        "type": "String",
-        "defaultValue": ""
-    },
-    "prefix": {
-        "type": "String",
-        "defaultValue": ""
-    }
-  }
-PARAMETERS
+  parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   policy_definitions = <<POLICY_DEFINITIONS
     [
         {
