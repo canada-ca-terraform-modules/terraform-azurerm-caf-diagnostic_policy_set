@@ -59,10 +59,6 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
     "prefix": {
         "type": "String",
         "defaultValue": ""
-    },
-    "subscriptionID": {
-        "type": "String",
-        "defaultValue": "[field('Microsoft.Subscription/SubscriptionDefinitions/subscriptionId']"
     }
   }
 PARAMETERS
@@ -77,7 +73,7 @@ PARAMETERS
                     "value": "[parameters('prefix')]"
                 }
             },
-            "policyDefinitionId": "[concat(parameters('subscriptionID'), '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
+            "policyDefinitionId": "[concat(subscription().subscriptionId, '/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA')]"
         },
         {
             "parameters": {
