@@ -8,7 +8,7 @@
         "value": "[parameters('prefix')]"
       }
     },
-    "policyDefinitionId": "[concat('/subscriptions/', field('subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/', 'Deploy-Diagnostics-AA')]"
+    "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
   },
   {
     "parameters": {

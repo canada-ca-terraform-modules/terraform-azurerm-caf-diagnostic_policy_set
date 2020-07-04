@@ -45,13 +45,18 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics" {
   policy_rule  = file("${path.module}/policies/${each.key}.json")
 }
 
+data local_file Deploy-Diagnostics-policySetDefinition {
+    file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json")
+}
+
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   count              = var.deploy ? 1 : 0
   name               = local.policy_set_name
   policy_type        = "Custom"
   display_name       = local.policy_set_name
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
-  policy_definitions = <<POLICY_DEFINITIONS
+  policy_definitions = data.local_file.Deploy-Diagnostics-policySetDefinition.content
+  /*<<POLICY_DEFINITIONS
     [
         {
             "parameters": {
@@ -153,7 +158,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VMSS"].id}"
         }
     ]
-POLICY_DEFINITIONS
+POLICY_DEFINITIONS*/
 }
 
 resource "azurerm_policy_assignment" "policy_assignment" {
