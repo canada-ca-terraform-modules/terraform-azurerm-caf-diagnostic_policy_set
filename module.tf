@@ -73,12 +73,7 @@ PARAMETERS
                     "value": "[parameters('prefix')]"
                 }
             },
-            "variables": {
-                "policyDefinitionId": "/subscriptions/ed433324-b886-4c85-b62c-49283b83cafd/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA"
-            },
-            "policyDefinitionId": {
-                "value": "/subscriptions/ed433324-b886-4c85-b62c-49283b83cafd/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA"
-            }
+            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
         },
         {
             "parameters": {
