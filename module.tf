@@ -50,27 +50,37 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   name         = local.policy_set_name
   policy_type  = "Custom"
   display_name = local.policy_set_name
-
+  parameters = <<PARAMETERS
+  {
+    "logAnalytics": {
+      "value": "${var.log_analytics_workspace.id}"
+    },
+    "prefix": {
+      "value": "${var.log_analytics_workspace.name}-"
+    }
+  }
+PARAMETERS
   policy_definitions = <<POLICY_DEFINITIONS
     [
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
+                    "default": ""
                 }
             },
-            "policyDefinitionId": "[concat('/subscriptions/', field('Microsoft.Subscription/SubscriptionDefinitions/subscriptionId'), '/providers/Microsoft.Authorization/policyDefinitions/', 'Deploy-Diagnostics-AA')]"
+            "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-AA"].id}"
         },
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-ActivityLog"].id}"
@@ -78,10 +88,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-KeyVault"].id}"
@@ -89,10 +99,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NIC"].id}"
@@ -100,10 +110,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-NSG"].id}"
@@ -111,10 +121,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-Recovery_Vault"].id}"
@@ -122,10 +132,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VNET"].id}"
@@ -133,10 +143,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VM"].id}"
@@ -144,10 +154,10 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
         {
             "parameters": {
                 "logAnalytics": {
-                    "value": "${var.log_analytics_workspace.id}"
+                    "value": "[parameters('logAnalytics')]"
                 },
                 "prefix": {
-                    "value": "${var.log_analytics_workspace.name}-"
+                    "value": "[parameters('prefix')]"
                 }
             },
             "policyDefinitionId": "${azurerm_policy_definition.Deploy-Diagnostics["Deploy-Diagnostics-VMSS"].id}"
