@@ -46,17 +46,18 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics" {
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
-  count        = var.deploy ? 1 : 0
-  name         = local.policy_set_name
-  policy_type  = "Custom"
-  display_name = local.policy_set_name
-  parameters = <<PARAMETERS
+  count              = var.deploy ? 1 : 0
+  name               = local.policy_set_name
+  policy_type        = "Custom"
+  display_name       = local.policy_set_name
+  parameters         = <<PARAMETERS
   {
     "logAnalytics": {
-      "value": "${var.log_analytics_workspace.id}"
+        "type": "String"
     },
     "prefix": {
-      "value": "${var.log_analytics_workspace.name}-"
+        "type": "String",
+        "defaultValue": ""
     }
   }
 PARAMETERS
@@ -176,4 +177,14 @@ resource "azurerm_policy_assignment" "policy_assignment" {
   identity {
     type = "SystemAssigned"
   }
+  parameters = <<PARAMETERS
+  {
+    "logAnalytics": {
+      "value": "${var.log_analytics_workspace.id}"
+    },
+    "prefix": {
+      "value": "${var.log_analytics_workspace.name}-"
+    }
+  }
+PARAMETERS
 }
