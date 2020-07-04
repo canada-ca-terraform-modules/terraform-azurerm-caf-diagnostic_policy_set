@@ -76,7 +76,7 @@ PARAMETERS
             "variables": {
                 "policyDefinitionId": "/subscriptions/ed433324-b886-4c85-b62c-49283b83cafd/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA"
             },
-            "policyDefinitionId": "[variables('policyDefinitionId')]"
+            "policyDefinitionId": "/subscriptions/ed433324-b886-4c85-b62c-49283b83cafd/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA"
         },
         {
             "parameters": {
