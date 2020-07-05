@@ -50,7 +50,6 @@ data "template_file" "policy_definitions" {
   vars = {
     subscriptionID = data.azurerm_subscription.primary.subscription_id
   }
-}
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   count              = var.deploy ? 1 : 0
