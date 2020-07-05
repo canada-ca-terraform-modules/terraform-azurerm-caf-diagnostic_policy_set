@@ -71,7 +71,7 @@ locals {
   }
   */
   subscriptionID = data.azurerm_subscription.primary.subscription_id
-  policies_json  = jsondecode(templatefile("${path.module}/policies/all-policies.json", { subscriptionID = local.subscriptionID }))
+  policies_json  = jsondecode(templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }))
   policies = {
     for item in local.policies_json.parameters.input.value.properties.policyDefinitions :
     item.Name => {
