@@ -81,12 +81,28 @@ locals {
     }
   }
   policy_assignment = [
+    for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
+    {
+      "parameters" : {
+        "logAnalytics" : {
+          "value" : "[parameters('logAnalytics')]"
+        },
+        "prefix" : {
+          "value" : "[parameters('prefix')]"
+        }
+      },
+      "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.name}"
+    }
+  ]
+  /*
+  policy_assignment = [
     for item in local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions :
     {
       policyDefinitionId = item.policyDefinitionId
       parameters = item.parameters
     }
   ]
+  */
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
