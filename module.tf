@@ -2,76 +2,8 @@ data azurerm_subscription primary {}
 
 locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
-  /*
-  policies = {
-    AA = {
-      name        = "Deploy-Diagnostics-AA"
-      description = "Apply diagnostic settings for Azure Automation Accounts - Log Analytics"
-    },
-    ACI = {
-      name        = "Deploy-Diagnostics-ACI"
-      description = "Apply diagnostic settings for Azure Container Instances - Log Analytics"
-    },
-    ACR = {
-      name        = "Deploy-Diagnostics-ACR"
-      description = "Apply diagnostic settings for Azure Container Registries - Log Analytics"
-    },
-    ActivityLog = {
-      name        = "Deploy-Diagnostics-ActivityLog"
-      description = "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics"
-    },
-    AKS = {
-      name        = "Deploy-Diagnostics-AKS"
-      description = "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics"
-    },
-    AnalysisServices = {
-      name        = "Deploy-Diagnostics-AnalysisServices"
-      description = "Apply diagnostic settings for Azure Analysis Services - Log Analytics"
-    },
-    APIMgmt = {
-      name        = "Deploy-Diagnostics-APIMgmt"
-      description = "Apply diagnostic settings for API Management services - Log Analytics"
-    },
-    ApplicationGateway = {
-      name        = "Deploy-Diagnostics-ApplicationGateway"
-      description = "Apply diagnostic settings for Application Gateway services - Log Analytics"
-    },
-    Batch = {
-      name        = "Deploy-Diagnostics-Batch"
-      description = "Apply diagnostic settings for Azure Batch accounts - Log Analytics"
-    },
-    KeyVault = {
-      name        = "Deploy-Diagnostics-KeyVault"
-      description = "Apply diagnostic settings for Azure KeyVault - Log Analytics"
-    },
-    NIC = {
-      name        = "Deploy-Diagnostics-NIC"
-      description = "Apply diagnostic settings for Azure NIC - Log Analytics"
-    },
-    NSG = {
-      name        = "Deploy-Diagnostics-NSG"
-      description = "Apply diagnostic settings for Azure NSG - Log Analytics"
-    },
-    Recovery_Vault = {
-      name        = "Deploy-Diagnostics-Recovery_Vault"
-      description = "Apply diagnostic settings for Azure Recovery Vault - Log Analytics"
-    },
-    VM = {
-      name        = "Deploy-Diagnostics-VM"
-      description = "Apply diagnostic settings for Azure VM - Log Analytics"
-    },
-    VMSS = {
-      name        = "Deploy-Diagnostics-VMSS"
-      description = "Apply diagnostic settings for Azure VM Scale Set - Log Analytics"
-    },
-    VNET = {
-      name        = "Deploy-Diagnostics-VNET"
-      description = "Apply diagnostic settings for Azure VNET - Log Analytics"
-    }
-  }
-  */
-  subscriptionID = data.azurerm_subscription.primary.subscription_id
-  policies_json  = jsondecode(templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }))
+  subscriptionID  = data.azurerm_subscription.primary.subscription_id
+  policies_json   = jsondecode(templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }))
   policies = {
     for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
     policy.Name => {
@@ -94,19 +26,10 @@ locals {
       "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.Name}"
     }
   ]
-  /*
-  policy_assignment = [
-    for policy in local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions :
-    {
-      policyDefinitionId = policy.policyDefinitionId
-      parameters = policy.parameters
-    }
-  ]
-  */
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = local.policies
+  for_each = var.deploy ? local.policies : {}
 
   name         = each.value.name
   policy_type  = "Custom"
