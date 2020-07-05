@@ -2,6 +2,7 @@ data azurerm_subscription primary {}
 
 locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
+  /*
   policies = {
     AA = {
       name        = "Deploy-Diagnostics-AA"
@@ -68,21 +69,18 @@ locals {
       description = "Apply diagnostic settings for Azure VNET - Log Analytics"
     }
   }
+  */
   subscriptionID = data.azurerm_subscription.primary.subscription_id
-  policy_assignment = [
-    for policy in local.policies :
-    {
-      "parameters" : {
-        "logAnalytics" : {
-          "value" : "[parameters('logAnalytics')]"
-        },
-        "prefix" : {
-          "value" : "[parameters('prefix')]"
-        }
-      },
-      "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.name}"
+  policies_json = jsondecode(templatefile("${path.module}/policies/all-policies.json", { subscriptionID = local.subscriptionID}))
+  policies = {
+    for item in local.policies_json.parameters.input.value.properties.policyDefinitions :
+    item.Name => {
+      name = item.Name
+      description = try(item.Properties.description, "")
+      policyRule = item.Properties.policyRule
     }
-  ]
+  }
+  policy_assignment = local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
@@ -94,7 +92,8 @@ resource "azurerm_policy_definition" "policy_definition" {
   display_name = each.value.name
   description  = each.value.description
   parameters   = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
-  policy_rule  = file("${path.module}/policies/${each.value.name}.json")
+  # policy_rule  = file("${path.module}/policies/${each.value.name}.json")
+  policy_rule  = each.value.policyRule
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
