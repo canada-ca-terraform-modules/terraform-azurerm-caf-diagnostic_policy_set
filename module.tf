@@ -71,20 +71,20 @@ locals {
   }
   */
   subscriptionID = data.azurerm_subscription.primary.subscription_id
-  policies_json = jsondecode(templatefile("${path.module}/policies/all-policies.json", { subscriptionID = local.subscriptionID}))
+  policies_json  = jsondecode(templatefile("${path.module}/policies/all-policies.json", { subscriptionID = local.subscriptionID }))
   policies = {
     for item in local.policies_json.parameters.input.value.properties.policyDefinitions :
     item.Name => {
-      name = item.Name
+      name        = item.Name
       description = try(item.Properties.description, "")
-      policyRule = item.Properties.policyRule
+      policyRule  = item.Properties.policyRule
     }
   }
   policy_assignment = local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = var.deploy ? local.policies : {}
+  for_each = var.deploy ? local.policies : {{}}
 
   name         = each.value.name
   policy_type  = "Custom"
@@ -93,7 +93,7 @@ resource "azurerm_policy_definition" "policy_definition" {
   description  = each.value.description
   parameters   = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   # policy_rule  = file("${path.module}/policies/${each.value.name}.json")
-  policy_rule  = each.value.policyRule
+  policy_rule = each.value.policyRule
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {

@@ -44,12 +44,12 @@ locals {
     item.Name => {
       name = item.Name
       description = try(item.Properties.description, "")
-      policyRule = item.Properties.policyRule
+      #policyRule = item.Properties.policyRule
     }
   }
   policy_assignment = local.test.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions
 }
 
 output res {
-    value = local.policy_assignment
+    value = local.policySet
 }
