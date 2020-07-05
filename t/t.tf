@@ -47,7 +47,13 @@ locals {
       policyRule = item.Properties.policyRule
     }
   }
-  policy_assignment = local.test.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions
+  policy_assignment = [
+    for item in local.test.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions : 
+    {
+      policyDefinitionId = item.policyDefinitionId
+      parameters = item.parameters
+    }
+  ]
 }
 
 output res {
