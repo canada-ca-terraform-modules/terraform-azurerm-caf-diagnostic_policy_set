@@ -8,35 +8,35 @@ locals {
       description = "Apply diagnostic settings for Azure Automation Accounts - Log Analytics"
     },
     ActivityLog = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-ActivityLog"
       description = "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics"
     },
     KeyVault = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-KeyVault"
       description = "Apply diagnostic settings for Azure KeyVault - Log Analytics"
     },
     NIC = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-NIC"
       description = "Apply diagnostic settings for Azure NIC - Log Analytics"
     },
     NSG = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-NSG"
       description = "Apply diagnostic settings for Azure NSG - Log Analytics"
     },
     Recovery_Vault = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-Recovery_Vault"
       description = "Apply diagnostic settings for Azure Recovery Vault - Log Analytics"
     },
     VM = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-VM"
       description = "Apply diagnostic settings for Azure VM - Log Analytics"
     },
     VMSS = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-VMSS"
       description = "Apply diagnostic settings for Azure VM Scale Set - Log Analytics"
     },
     VNET = {
-      name = "Deploy-Diagnostics-AA"
+      name = "Deploy-Diagnostics-VNET"
       description = "Apply diagnostic settings for Azure VNET - Log Analytics"
     }
   }
