@@ -46,7 +46,7 @@ resource "azurerm_policy_definition" "Deploy-Diagnostics" {
 }
 
 data "template_file" "policy_definitions" {
-template = file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json")
+  template = file("${path.module}/policies/Deploy-Diagnostics-policySetDefinition.json")
   vars = {
     subscriptionID = data.azurerm_subscription.primary.subscription_id
   }
