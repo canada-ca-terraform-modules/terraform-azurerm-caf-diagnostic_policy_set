@@ -7,7 +7,7 @@
     "effect": "deployIfNotExists",
     "details": {
       "type": "Microsoft.Insights/diagnosticSettings",
-      "name": "setByPolicy",
+      "name": "[concat(parameters('prefix'), 'setByPolicy')]",
       "existenceCondition": {
         "allOf": [
           {
