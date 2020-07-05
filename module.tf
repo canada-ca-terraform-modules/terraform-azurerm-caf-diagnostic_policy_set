@@ -12,6 +12,7 @@ locals {
       policyRule  = policy.Properties.policyRule
     }
   }
+  policies_empty = {}
   policy_assignment = [
     for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
     {
@@ -29,7 +30,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = var.deploy ? local.policies : null
+  for_each = var.deploy ? local.policies : local.policies_empty
 
   name         = each.value.name
   policy_type  = "Custom"
