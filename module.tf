@@ -4,14 +4,14 @@ locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
   subscriptionID  = data.azurerm_subscription.primary.subscription_id
   policies_json   = jsondecode(templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }))
-  policies = var.deploy ? {
+  policies = {
     for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
     policy.Name => {
       name        = policy.Name
       description = try(policy.Properties.description, "")
       policyRule  = policy.Properties.policyRule
     }
-  } : {}
+  }
   policy_assignment = [
     for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
     {
@@ -29,7 +29,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = local.policies
+  for_each = var.deploy ? local.policies : null
 
   name         = each.value.name
   policy_type  = "Custom"

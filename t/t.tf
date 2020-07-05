@@ -39,14 +39,15 @@ locals {
     }
   }
   subscriptionID = "54353534 4543"
-  policySet = {
+  truevar = false
+  policySet = local.truevar ? {
     for item in local.test.parameters.input.value.properties.policyDefinitions :
     item.Name => {
       name = item.Name
       description = try(item.Properties.description, "")
       policyRule = item.Properties.policyRule
     }
-  }
+  } : null
   policy_assignment = [
     for item in local.test.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions : 
     {
@@ -57,5 +58,5 @@ locals {
 }
 
 output res {
-    value = local.policy_assignment
+    value = local.policySet
 }
