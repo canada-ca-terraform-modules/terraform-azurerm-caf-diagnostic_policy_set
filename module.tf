@@ -58,7 +58,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "Deploy-Diagnostics" {
-  for_each = var.deploy ? local.policies : []
+  for_each = var.deploy ? toset(local.policies) : {}
 
   name         = each.value.name
   policy_type  = "Custom"
