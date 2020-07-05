@@ -73,11 +73,11 @@ locals {
   subscriptionID = data.azurerm_subscription.primary.subscription_id
   policies_json  = jsondecode(templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }))
   policies = {
-    for item in local.policies_json.parameters.input.value.properties.policyDefinitions :
-    item.Name => {
-      name        = item.Name
-      description = try(item.Properties.description, "")
-      policyRule  = item.Properties.policyRule
+    for policy in local.policies_json.parameters.input.value.properties.policyDefinitions :
+    policy.Name => {
+      name        = policy.Name
+      description = try(policy.Properties.description, "")
+      policyRule  = policy.Properties.policyRule
     }
   }
   policy_assignment = [
@@ -91,15 +91,15 @@ locals {
           "value" : "[parameters('prefix')]"
         }
       },
-      "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.name}"
+      "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.Name}"
     }
   ]
   /*
   policy_assignment = [
-    for item in local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions :
+    for policy in local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions :
     {
-      policyDefinitionId = item.policyDefinitionId
-      parameters = item.parameters
+      policyDefinitionId = policy.policyDefinitionId
+      parameters = policy.parameters
     }
   ]
   */
