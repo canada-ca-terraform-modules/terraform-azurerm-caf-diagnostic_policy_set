@@ -1,0 +1,101 @@
+[
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ActivityLog"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-KeyVault"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NSG"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Recovery_Vault"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VNET"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VM"
+    },
+    {
+        "parameters": {
+            "logAnalytics": {
+                "value": "[parameters('logAnalytics')]"
+            },
+            "prefix": {
+                "value": "[parameters('prefix')]"
+            }
+        },
+        "policyDefinitionId": "/subscriptions/${subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VMSS"
+    }
+]
