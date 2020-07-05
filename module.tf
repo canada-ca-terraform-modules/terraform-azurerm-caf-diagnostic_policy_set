@@ -58,7 +58,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "Deploy-Diagnostics" {
-  for_each = var.deploy ? local.policies : {}
+  for_each = var.deploy ? local.policies : []
 
   name         = each.value.name
   policy_type  = "Custom"
@@ -81,7 +81,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   policy_type        = "Custom"
   display_name       = local.policy_set_name
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
-  policy_definitions = local.policySet # data.template_file.policy_definitions.rendered
+  policy_definitions = jsonencode(local.policySet) # data.template_file.policy_definitions.rendered
   /*
   <<POLICY_DEFINITIONS
     [
