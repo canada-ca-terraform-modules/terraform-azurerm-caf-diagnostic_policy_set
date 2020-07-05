@@ -70,7 +70,7 @@ resource "azurerm_policy_definition" "policy_definition" {
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
-  depends_on         = [resource.azurerm_policy_definition.policy_definition]
+  depends_on         = [azurerm_policy_definition.policy_definition]
   count              = var.deploy ? 1 : 0
   name               = local.policy_set_name
   policy_type        = "Custom"
