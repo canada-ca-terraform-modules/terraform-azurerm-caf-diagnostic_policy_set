@@ -93,7 +93,7 @@ resource "azurerm_policy_definition" "policy_definition" {
   description  = each.value.description
   parameters   = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   # policy_rule  = file("${path.module}/policies/${each.value.name}.json")
-  policy_rule = each.value.policyRule
+  policy_rule = jsonencode(each.value.policyRule)
 }
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
