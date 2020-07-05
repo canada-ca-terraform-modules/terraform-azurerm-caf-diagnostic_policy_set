@@ -2,44 +2,44 @@ data azurerm_subscription primary {}
 
 locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
-  policies = [
-    {
-      name        = "Deploy-Diagnostics-AA"
+  policies = {
+    AA = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure Automation Accounts - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-ActivityLog"
+    ActivityLog = {
+      name = "Deploy-Diagnostics-AA"
       description = "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-KeyVault"
+    KeyVault = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure KeyVault - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-NIC"
+    NIC = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure NIC - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-NSG"
+    NSG = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure NSG - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-Recovery_Vault"
+    Recovery_Vault = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure Recovery Vault - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-VM"
+    VM = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure VM - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-VMSS"
+    VMSS = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure VM Scale Set - Log Analytics"
     },
-    {
-      name        = "Deploy-Diagnostics-VNET"
+    VNET = {
+      name = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure VNET - Log Analytics"
     }
-  ]
+  }
   subscriptionID = data.azurerm_subscription.primary.subscription_id
   policySet = [
     for item in local.policies :
