@@ -84,7 +84,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = var.deploy ? local.policies : {{}}
+  for_each = local.policies
 
   name         = each.value.name
   policy_type  = "Custom"
