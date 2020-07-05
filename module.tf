@@ -7,9 +7,37 @@ locals {
       name        = "Deploy-Diagnostics-AA"
       description = "Apply diagnostic settings for Azure Automation Accounts - Log Analytics"
     },
+    ACI = {
+      name        = "Deploy-Diagnostics-ACI"
+      description = "Apply diagnostic settings for Azure Container Instances - Log Analytics"
+    },
+    ACR = {
+      name        = "Deploy-Diagnostics-ACR"
+      description = "Apply diagnostic settings for Azure Container Registries - Log Analytics"
+    },
     ActivityLog = {
       name        = "Deploy-Diagnostics-ActivityLog"
       description = "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics"
+    },
+    AKS = {
+      name        = "Deploy-Diagnostics-AKS"
+      description = "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics"
+    },
+    AnalysisServices = {
+      name        = "Deploy-Diagnostics-AnalysisServices"
+      description = "Apply diagnostic settings for Azure Analysis Services - Log Analytics"
+    },
+    APIMgmt = {
+      name        = "Deploy-Diagnostics-APIMgmt"
+      description = "Apply diagnostic settings for API Management services - Log Analytics"
+    },
+    ApplicationGateway = {
+      name        = "Deploy-Diagnostics-ApplicationGateway"
+      description = "Apply diagnostic settings for Application Gateway services - Log Analytics"
+    },
+    Batch = {
+      name        = "Deploy-Diagnostics-Batch"
+      description = "Apply diagnostic settings for Azure Batch accounts - Log Analytics"
     },
     KeyVault = {
       name        = "Deploy-Diagnostics-KeyVault"
@@ -75,6 +103,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   name               = local.policy_set_name
   policy_type        = "Custom"
   display_name       = local.policy_set_name
+  description        = "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace."
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   policy_definitions = jsonencode(local.policy_assignment)
 }

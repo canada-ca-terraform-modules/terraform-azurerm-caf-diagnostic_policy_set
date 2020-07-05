@@ -1,22 +1,21 @@
 {
   "if": {
-    "allOf": [
-      {
-        "field": "type",
-        "equals": "Microsoft.Resources/subscriptions"
-      }
-    ]
+    "field": "type",
+    "equals": "Microsoft.AnalysisServices/servers"
   },
   "then": {
     "effect": "deployIfNotExists",
     "details": {
       "type": "Microsoft.Insights/diagnosticSettings",
-      "deploymentScope": "Subscription",
-      "existenceScope": "Subscription",
+      "name": "setByPolicy",
       "existenceCondition": {
         "allOf": [
           {
             "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+            "equals": "true"
+          },
+          {
+            "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
             "equals": "true"
           },
           {
@@ -25,61 +24,57 @@
           }
         ]
       },
+      "roleDefinitionIds": [
+        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+      ],
       "deployment": {
-        "location": "Global",
         "properties": {
           "mode": "incremental",
           "template": {
-            "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+            "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
             "contentVersion": "1.0.0.0",
             "parameters": {
+              "resourceName": {
+                "type": "string"
+              },
               "logAnalytics": {
                 "type": "string"
               },
               "prefix": {
+                "type": "string"
+              },
+              "location": {
                 "type": "string"
               }
             },
             "variables": {},
             "resources": [
               {
-                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
-                "type": "Microsoft.Insights/diagnosticSettings",
+                "type": "Microsoft.AnalysisServices/servers/providers/diagnosticSettings",
                 "apiVersion": "2017-05-01-preview",
-                "location": "Global",
+                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
+                "location": "[parameters('location')]",
+                "dependsOn": [],
                 "properties": {
                   "workspaceId": "[parameters('logAnalytics')]",
+                  "metrics": [
+                    {
+                      "category": "AllMetrics",
+                      "enabled": true,
+                      "retentionPolicy": {
+                        "days": 0,
+                        "enabled": false
+                      },
+                      "timeGrain": null
+                    }
+                  ],
                   "logs": [
                     {
-                      "category": "Administrative",
+                      "category": "Engine",
                       "enabled": true
                     },
                     {
-                      "category": "Security",
-                      "enabled": true
-                    },
-                    {
-                      "category": "ServiceHealth",
-                      "enabled": true
-                    },
-                    {
-                      "category": "Alert",
-                      "enabled": true
-                    },
-                    {
-                      "category": "Recommendation",
-                      "enabled": true
-                    },
-                    {
-                      "category": "Policy",
-                      "enabled": true
-                    },
-                    {
-                      "category": "Autoscale",
-                      "enabled": true
-                    },
-                    {
-                      "category": "ResourceHealth",
+                      "category": "Service",
                       "enabled": true
                     }
                   ]
@@ -97,13 +92,13 @@
             },
             "location": {
               "value": "[field('location')]"
+            },
+            "resourceName": {
+              "value": "[field('name')]"
             }
           }
         }
-      },
-      "roleDefinitionIds": [
-        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-      ]
+      }
     }
   }
 }
