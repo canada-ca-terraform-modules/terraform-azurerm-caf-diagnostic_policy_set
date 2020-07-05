@@ -80,7 +80,13 @@ locals {
       policyRule  = item.Properties.policyRule
     }
   }
-  policy_assignment = local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions
+  policy_assignment = [
+    for item in local.policies_json.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions :
+    {
+      policyDefinitionId = item.policyDefinitionId
+      parameters = item.parameters
+    }
+  ]
 }
 
 resource "azurerm_policy_definition" "policy_definition" {

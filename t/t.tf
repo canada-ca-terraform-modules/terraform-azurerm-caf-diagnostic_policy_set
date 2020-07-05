@@ -51,5 +51,5 @@ locals {
 }
 
 output res {
-    value = local.policySet
+    value = local.policy_assignment
 }
