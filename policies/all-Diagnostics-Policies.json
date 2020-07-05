@@ -490,7 +490,7 @@
                         ]
                       },
                       "deployment": {
-                        "location": "northeurope",
+                        "location": "Global",
                         "properties": {
                           "mode": "incremental",
                           "template": {
@@ -552,6 +552,12 @@
                           "parameters": {
                             "logAnalytics": {
                               "value": "[parameters('logAnalytics')]"
+                            },
+                            "prefix": {
+                              "value": "[parameters('prefix')]"
+                            },
+                            "location": {
+                              "value": "[field('location')]"
                             }
                           }
                         }
