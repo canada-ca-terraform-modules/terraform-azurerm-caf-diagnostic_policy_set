@@ -38,12 +38,17 @@ locals {
     }
   }
   subscriptionID = "54353534 4543"
-  policySet = [
-    for item in local.policies :
-    
-      key
-    
-  ]
+  truevar = true
+  test = local.truevar ? templatefile("../policies/all-Diagnostics-Policies.json", { subscriptionID = "3453 sdfsdf"}) : "[]"
+  
+  policySet = {
+    for item in jsondecode(local.test) :
+    item.Name => {
+      name = item.Name
+      description = try(item.Properties.description, "")
+      policyRule = item.Properties.policyRule
+    }
+  }
 }
 
 output res {
