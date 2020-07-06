@@ -43,7 +43,7 @@ resource "azurerm_policy_definition" "policy_definition" {
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   depends_on         = [azurerm_policy_definition.policy_definition]
-  #count              = var.deploy ? 1 : 0
+  count              = var.deploy ? 1 : 0
   name               = local.policy_set_name
   policy_type        = "Custom"
   display_name       = local.policy_set_name
@@ -57,7 +57,7 @@ resource "azurerm_policy_assignment" "policy_assignment" {
   name                 = local.policy_set_name
   location             = var.log_analytics_workspace.location
   scope                = data.azurerm_subscription.primary.id
-  policy_definition_id = azurerm_policy_set_definition.policy_set_definition.id
+  policy_definition_id = azurerm_policy_set_definition.policy_set_definition[0].id
   display_name         = local.policy_set_name
   description          = "Apply diagnostic settings for Azure for PBMM Guardrails compliance"
   identity {
