@@ -3,7 +3,7 @@
 Reference the module to a specific version (recommended):
 ```hcl
 module Project-Diagnostic-Policy {
-  source                  = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-diagnostic_policy_set?ref=v0.1.0"
+  source                  = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-diagnostic_policy_set?ref=v0.1.7"
   env                     = var.env
   userDefinedString       = local.prefix
   log_analytics_workspace = local.Project-law
