@@ -3,9 +3,9 @@ data azurerm_subscription primary {}
 locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
   subscriptionID  = data.azurerm_subscription.primary.subscription_id
-  policies_json   = var.deploy ? templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }) : "{}"
+  policies_json   = var.deploy ? templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }) : "[]"
   policies = {
-    for policy in local.policies_json :
+    for policy in jsondecode(local.policies_json) :
     policy.Name => {
       name        = policy.Name
       description = try(policy.Properties.description, "")
@@ -13,7 +13,7 @@ locals {
     }
   }
   policy_assignment = [
-    for policy in local.policies_json :
+    for policy in jsondecode(local.policies_json) :
     {
       "parameters" : {
         "logAnalytics" : {
@@ -29,7 +29,7 @@ locals {
 }
 
 resource "azurerm_policy_definition" "policy_definition" {
-  for_each = jsondecode(local.policies)
+  for_each = local.policies
   # No need for count since we handle the the local.policies content at the local file read time
   name         = each.value.name
   policy_type  = "Custom"
