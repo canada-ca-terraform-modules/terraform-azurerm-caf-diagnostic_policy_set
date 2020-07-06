@@ -1,5 +1,4 @@
 locals {
-  test = jsondecode(templatefile("../policies/all-policies.json", { subscriptionID = "3453 sdfsdf"}))
   policies = {
     AA = {
       name = "Deploy-Diagnostics-AA"
@@ -39,22 +38,17 @@ locals {
     }
   }
   subscriptionID = "54353534 4543"
-  truevar = false
-  policySet = local.truevar ? {
-    for item in local.test.parameters.input.value.properties.policyDefinitions :
+  truevar = true
+  test = local.truevar ? templatefile("../policies/all-Diagnostics-Policies.json", { subscriptionID = "3453 sdfsdf"}) : "[]"
+  
+  policySet = {
+    for item in jsondecode(local.test) :
     item.Name => {
       name = item.Name
       description = try(item.Properties.description, "")
       policyRule = item.Properties.policyRule
     }
-  } : null
-  policy_assignment = [
-    for item in local.test.parameters.input.value.properties.policySetDefinitions[1].Properties.policyDefinitions : 
-    {
-      policyDefinitionId = item.policyDefinitionId
-      parameters = item.parameters
-    }
-  ]
+  }
 }
 
 output res {
