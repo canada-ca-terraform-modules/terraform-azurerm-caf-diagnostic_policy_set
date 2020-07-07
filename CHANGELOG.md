@@ -33,3 +33,12 @@ FEATURES:
 IMPROVEMENTS:
 
 BUGS:
+
+## v0.1.8 (July 2020)
+
+FEATURES: 
+* **new feature:**  Moving the policy assignment part out of the module to make it more generic and allow for the assignment to take place outside as a seperate resource.
+
+IMPROVEMENTS:
+
+BUGS:

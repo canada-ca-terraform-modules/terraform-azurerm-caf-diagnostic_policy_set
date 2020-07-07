@@ -51,26 +51,3 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   parameters         = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   policy_definitions = jsonencode(local.policy_assignment)
 }
-
-resource "azurerm_policy_assignment" "policy_assignment" {
-  count                = var.deploy ? 1 : 0
-  name                 = local.policy_set_name
-  location             = var.log_analytics_workspace.location
-  scope                = var.scopeID == null ? data.azurerm_subscription.primary.id : var.scopeID
-  policy_definition_id = azurerm_policy_set_definition.policy_set_definition[0].id
-  display_name         = local.policy_set_name
-  description          = "Apply diagnostic settings for Azure for PBMM Guardrails compliance"
-  identity {
-    type = "SystemAssigned"
-  }
-  parameters = <<PARAMETERS
-  {
-    "logAnalytics": {
-      "value": "${var.log_analytics_workspace.id}"
-    },
-    "prefix": {
-      "value": "${var.log_analytics_workspace.name}-"
-    }
-  }
-PARAMETERS
-}

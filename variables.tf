@@ -17,9 +17,3 @@ variable "deploy" {
   type        = bool
   default     = true
 }
-
-variable "scopeID" {
-  description = "(Optional) Object ID of the scope to which the policy shoule be applied. Can be one of Management Group ID, Subscription ID or Resource Group ID. Default is the current Subscription ID."
-  type        = string
-  default     = null
-}
