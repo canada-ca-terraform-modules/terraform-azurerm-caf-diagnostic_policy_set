@@ -56,7 +56,7 @@ resource "azurerm_policy_assignment" "policy_assignment" {
   count                = var.deploy ? 1 : 0
   name                 = local.policy_set_name
   location             = var.log_analytics_workspace.location
-  scope                = data.azurerm_subscription.primary.id
+  scope                = var.scopeID == null ? data.azurerm_subscription.primary.id : var.scopeID
   policy_definition_id = azurerm_policy_set_definition.policy_set_definition[0].id
   display_name         = local.policy_set_name
   description          = "Apply diagnostic settings for Azure for PBMM Guardrails compliance"
