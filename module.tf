@@ -1,9 +1,11 @@
+# https://github.com/Azure/Enterprise-Scale/blob/main/docs/reference/contoso/e2e-landing-zone-vwan-orchestration.parameters.json
+
 data azurerm_subscription primary {}
 
 locals {
   policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
   subscriptionID  = data.azurerm_subscription.primary.subscription_id
-  policies_json   = var.deploy ? templatefile("${path.module}/policies/all-Diagnostics-Policies.json", { subscriptionID = local.subscriptionID }) : "[]"
+  policies_json   = var.deploy ? file("${path.module}/policies/all-Diagnostics-Policies.json") : "[]"
   policies = {
     for policy in jsondecode(local.policies_json) :
     policy.Name => {
@@ -23,7 +25,7 @@ locals {
           "value" : "[parameters('prefix')]"
         }
       },
-      "policyDefinitionId" : "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.Name}"
+      "policyDefinitionId" : "${var.management_group_name == null ? "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy.Name}" : "/providers/Microsoft.Management/managementGroups/${var.management_group_name}/providers/Microsoft.Authorization/policyDefinitions/${policy.Name}"}"
     }
   ]
 }
