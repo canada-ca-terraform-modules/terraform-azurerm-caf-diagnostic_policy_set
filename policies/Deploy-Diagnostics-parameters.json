@@ -10,8 +10,8 @@
   "prefix": {
     "type": "String",
     "metadata": {
-      "displayName": "Log Analytics workspace name prefix",
-      "description": "(Optional) Provide a the Log Analytics workspace name prefix"
+      "displayName": "Diagnostics settings name prefix",
+      "description": "(Optional) Provide a prefix for the Diagnostics settings name"
     },
     "defaultValue": ""
   }

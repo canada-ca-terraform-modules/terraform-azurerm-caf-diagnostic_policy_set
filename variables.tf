@@ -12,6 +12,12 @@ variable "userDefinedString" {
   type        = string
 }
 
+variable "management_group_name" {
+  description = "(Optional) The name of the Management Group where this policy should be defined. Changing this forces a new resource to be created."
+  type        = string
+  default     = null
+}
+
 variable "deploy" {
   description = "Should resources be deployed"
   type        = bool
