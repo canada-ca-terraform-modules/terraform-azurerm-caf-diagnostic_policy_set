@@ -38,6 +38,7 @@ BUGS:
 
 FEATURES: 
 * **new feature:**  Moving the policy assignment part out of the module to make it more generic and allow for the assignment to take place outside as a seperate resource.
+* **new features:** Adding support for variable to set a management group instead of a subscription for the policies and policyset.
 
 IMPROVEMENTS:
 
