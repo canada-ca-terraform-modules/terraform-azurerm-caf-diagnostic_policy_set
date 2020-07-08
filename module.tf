@@ -3,7 +3,7 @@
 data azurerm_subscription primary {}
 
 locals {
-  policy_set_name = substr("${var.env}-${var.userDefinedString} diagnostic policy set", 0, 64)
+  policy_set_name = var.management_group_name == null ? substr("${var.env}-${var.userDefinedString} diagnostic initiative", 0, 64) : "Deploy-Diagnostic-Initiative"
   subscriptionID  = data.azurerm_subscription.primary.subscription_id
   policies_json   = var.deploy ? file("${path.module}/policies/all-Diagnostics-Policies.json") : "[]"
   policies = {
