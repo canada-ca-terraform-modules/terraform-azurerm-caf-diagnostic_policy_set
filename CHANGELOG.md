@@ -43,3 +43,13 @@ FEATURES:
 IMPROVEMENTS:
 
 BUGS:
+
+## v0.1.9 (July 2020)
+
+FEATURES: 
+
+IMPROVEMENTS:
+
+BUGS:
+
+* Fix issue with Activity Log policy not properly detecting non compliant subscription
