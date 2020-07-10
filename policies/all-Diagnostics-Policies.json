@@ -384,8 +384,8 @@
           "effect": "deployIfNotExists",
           "details": {
             "type": "Microsoft.Insights/diagnosticSettings",
-            "deploymentScope": "Subscription",
-            "existenceScope": "Subscription",
+            "deploymentScope": "subscription",
+            "existenceScope": "subscription",
             "existenceCondition": {
               "allOf": [
                 {
@@ -399,7 +399,7 @@
               ]
             },
             "deployment": {
-              "location": "Global",
+              "location": "northeurope",
               "properties": {
                 "mode": "incremental",
                 "template": {
@@ -408,12 +408,15 @@
                   "parameters": {
                     "logAnalytics": {
                       "type": "string"
+                    },
+                    "prefix": {
+                      "type": "string"
                     }
                   },
                   "variables": {},
                   "resources": [
                     {
-                      "name": "[concat(parameters('prefix'), 'setByPolicy')]",
+                      "name": "[concat(parameters('prefix'), 'subscriptionLogsToLogAnalytics')]",
                       "type": "Microsoft.Insights/diagnosticSettings",
                       "apiVersion": "2017-05-01-preview",
                       "location": "Global",
@@ -464,9 +467,6 @@
                   },
                   "prefix": {
                     "value": "[parameters('prefix')]"
-                  },
-                  "location": {
-                    "value": "[field('location')]"
                   }
                 }
               }

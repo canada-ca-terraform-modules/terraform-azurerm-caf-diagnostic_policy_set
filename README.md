@@ -1,4 +1,4 @@
-# Apply Diagnostics Policies on a Subscription
+# Deploy Diagnostics Policies and PolicySet
 
 Reference the module to a specific version (recommended):
 ```hcl
