@@ -53,3 +53,15 @@ IMPROVEMENTS:
 BUGS:
 
 * Fix issue with Activity Log policy not properly detecting non compliant subscription
+
+## v0.2.0 (July 2020)
+
+FEATURES: 
+
+* Add support for policy name postfix
+
+IMPROVEMENTS:
+
+BUGS:
+
+* Fix deprecation warning for azurerm_policy_set_definition

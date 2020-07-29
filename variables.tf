@@ -23,3 +23,8 @@ variable "deploy" {
   type        = bool
   default     = true
 }
+
+variable "policy_name_postfix" {
+  type    = string
+  default = ""
+}

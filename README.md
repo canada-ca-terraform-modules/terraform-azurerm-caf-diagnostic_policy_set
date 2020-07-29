@@ -7,6 +7,7 @@ module Project-Diagnostic-Policy {
   env                     = var.env
   userDefinedString       = local.prefix
   log_analytics_workspace = local.Project-law
+  policy_name_postfix     " "somethingoptional"
 }
 
 ```
@@ -20,6 +21,7 @@ module Project-Diagnostic-Policy {
 | userDefinedString       | string | None    | (Required) userDefinedString to be Used.                                                                                             |
 | management_group_name   | string | None    | (Optional) The name of the Management Group where this policy should be defined. Changing this forces a new resource to be created.  |
 | deploy                  | bool   | true    | (Optional) Should the module be deployed                                                                                             |
+| policy_name_postfix     | string | None    | (Optional) Append string to end of policy names                                                                                      |
 
 ## Parameters
 
