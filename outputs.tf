@@ -1,7 +1,16 @@
-output "policy_set_definition" {
-  value = var.deploy ? azurerm_policy_set_definition.policy_set_definition[0] : null
+output "object" {
+  value = azurerm_policy_set_definition.policy_set_definition
 }
 
+output "policy_set_definition" {
+  value = azurerm_policy_set_definition.policy_set_definition
+}
+
+output "name" {
+  value = azurerm_policy_set_definition.policy_set_definition.name
+}
+
+
 output "id" {
-  value = var.deploy ? azurerm_policy_set_definition.policy_set_definition[0].id : null
+  value = azurerm_policy_set_definition.policy_set_definition.id
 }

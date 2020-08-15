@@ -5,7 +5,7 @@ data azurerm_subscription primary {}
 locals {
   policy_set_name = var.management_group_name == null ? substr("${var.env}-${var.userDefinedString} diagnostic initiative", 0, 64) : "Deploy-Diagnostic-Initiative"
   subscriptionID  = data.azurerm_subscription.primary.subscription_id
-  policies_json   = var.deploy ? file("${path.module}/policies/all-Diagnostics-Policies.json") : "[]"
+  policies_json   = file("${path.module}/policies/all-Diagnostics-Policies.json")
   policies = {
     for policy in jsondecode(local.policies_json) :
     policy.Name => {
@@ -31,7 +31,6 @@ resource "azurerm_policy_definition" "policy_definition" {
 
 resource "azurerm_policy_set_definition" "policy_set_definition" {
   depends_on            = [azurerm_policy_definition.policy_definition]
-  count                 = var.deploy ? 1 : 0
   name                  = "${local.policy_set_name}${var.policy_name_postfix}"
   policy_type           = "Custom"
   display_name          = "${local.policy_set_name}${var.policy_name_postfix}"
