@@ -18,12 +18,6 @@ variable "management_group_name" {
   default     = null
 }
 
-variable "deploy" {
-  description = "Should resources be deployed"
-  type        = bool
-  default     = true
-}
-
 variable "policy_name_postfix" {
   type    = string
   default = ""
