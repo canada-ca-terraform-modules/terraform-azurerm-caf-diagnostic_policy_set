@@ -65,3 +65,13 @@ IMPROVEMENTS:
 BUGS:
 
 * Fix deprecation warning for azurerm_policy_set_definition
+
+## v1.0.0 (Aug 2020)
+
+FEATURES: 
+
+* Make code terraform 0.13 compatible
+
+IMPROVEMENTS:
+
+BUGS:
