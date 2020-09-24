@@ -75,3 +75,13 @@ FEATURES:
 IMPROVEMENTS:
 
 BUGS:
+
+## v1.0.1 (Oct 2020)
+
+FEATURES: 
+
+IMPROVEMENTS:
+
+BUGS:
+
+* Update RecoveryVault policy definition to resolv an error

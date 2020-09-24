@@ -6052,39 +6052,14 @@
                       "type": "Microsoft.Insights/diagnosticSettings",
                       "name": "[concat(parameters('prefix'), 'setByPolicy')]",
                       "existenceCondition": {
-                        "allof": [
+                        "allOf": [
                           {
-                            "count": {
-                              "field": "Microsoft.Insights/diagnosticSettings/logs[*]",
-                              "where": {
-                                "allof": [
-                                  {
-                                    "field": "Microsoft.Insights/diagnosticSettings/logs[*].Category",
-                                    "in": [
-                                      "CoreAzureBackup",
-                                      "AddonAzureBackupJobs",
-                                      "AddonAzureBackupAlerts",
-                                      "AddonAzureBackupPolicy",
-                                      "AddonAzureBackupStorage",
-                                      "AddonAzureBackupProtectedInstance"
-                                    ]
-                                  },
-                                  {
-                                    "field": "Microsoft.Insights/diagnosticSettings/logs[*].Enabled",
-                                    "equals": "True"
-                                  }
-                                ]
-                              }
-                            },
-                            "Equals": 6
+                            "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+                            "equals": "true"
                           },
                           {
                             "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
-                            "notEquals": "[parameters('logAnalytics')]"
-                          },
-                          {
-                            "field": "Microsoft.Insights/diagnosticSettings/logAnalyticsDestinationType",
-                            "equals": "Dedicated"
+                            "equals": "[parameters('logAnalytics')]"
                           }
                         ]
                       },
@@ -6114,40 +6089,25 @@
                             "variables": {},
                             "resources": [
                               {
-                                "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
+                                "type": "Microsoft.Cache/redis/providers/diagnosticSettings",
                                 "apiVersion": "2017-05-01-preview",
-                                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', 'setByPolicy')]",
+                                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
+                                "location": "[parameters('location')]",
                                 "dependsOn": [],
                                 "properties": {
                                   "workspaceId": "[parameters('logAnalytics')]",
-                                  "logAnalyticsDestinationType": "Dedicated",
-                                  "metrics": [],
-                                  "logs": [
+                                  "metrics": [
                                     {
-                                      "category": "CoreAzureBackup",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupAlerts",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupJobs",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupPolicy",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupProtectedInstance",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupStorage",
-                                      "enabled": "true"
+                                      "category": "AllMetrics",
+                                      "enabled": true,
+                                      "retentionPolicy": {
+                                        "days": 0,
+                                        "enabled": false
+                                      },
+                                      "timeGrain": null
                                     }
-                                  ]
+                                  ],
+                                  "logs": []
                                 }
                               }
                             ],
