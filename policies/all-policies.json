@@ -6026,11 +6026,17 @@
               "Name": "Deploy-Diagnostics-RecoveryVault",
               "ResourceType": "Microsoft.Management/managementGroups",
               "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-              "Properties": {
+              "properties": {
                 "displayName": "Deploy-Diagnostics-RecoveryVault",
                 "policyType": "Custom",
                 "mode": "All",
                 "description": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
+                "metadata": {
+                  "createdBy": "f36e31cf-2fcf-4df2-a769-c74d77f9445a",
+                  "createdOn": "2020-08-31T13:15:34.3824321Z",
+                  "updatedBy": "5a33ebb2-f046-4ec3-b28a-0b024ccc6a81",
+                  "updatedOn": "2020-09-25T11:33:38.1808021Z"
+                },
                 "parameters": {
                   "logAnalytics": {
                     "type": "String",
@@ -6039,18 +6045,101 @@
                       "description": "Select the Log Analytics workspace from dropdown list",
                       "strongType": "omsWorkspace"
                     }
+                  },
+                  "prefix": {
+                    "type": "String",
+                    "metadata": {
+                      "displayName": "Diagnostics settings name prefix",
+                      "description": "(Optional) Provide a prefix for the Diagnostics settings name"
+                    },
+                    "defaultValue": ""
                   }
                 },
                 "policyRule": {
                   "if": {
-                    "field": "type",
-                    "equals": "Microsoft.RecoveryServices/vaults"
+                    "equals": "Microsoft.RecoveryServices/vaults",
+                    "field": "type"
                   },
                   "then": {
-                    "effect": "deployIfNotExists",
                     "details": {
-                      "type": "Microsoft.Insights/diagnosticSettings",
-                      "name": "[concat(parameters('prefix'), 'setByPolicy')]",
+                      "deployment": {
+                        "properties": {
+                          "mode": "incremental",
+                          "parameters": {
+                            "location": {
+                              "value": "[field('location')]"
+                            },
+                            "logAnalytics": {
+                              "value": "[parameters('logAnalytics')]"
+                            },
+                            "prefix": {
+                              "value": "[parameters('prefix')]"
+                            },
+                            "resourceName": {
+                              "value": "[field('name')]"
+                            }
+                          },
+                          "template": {
+                            "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                            "contentVersion": "1.0.0.0",
+                            "outputs": {},
+                            "parameters": {
+                              "location": {
+                                "type": "string"
+                              },
+                              "logAnalytics": {
+                                "type": "string"
+                              },
+                              "prefix": {
+                                "type": "string"
+                              },
+                              "resourceName": {
+                                "type": "string"
+                              }
+                            },
+                            "resources": [
+                              {
+                                "apiVersion": "2017-05-01-preview",
+                                "dependsOn": [],
+                                "location": "[parameters('location')]",
+                                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
+                                "properties": {
+                                  "metrics": [],
+                                  "logs": [
+                                    {
+                                      "category": "CoreAzureBackup",
+                                      "enabled": "true"
+                                    },
+                                    {
+                                      "category": "AddonAzureBackupAlerts",
+                                      "enabled": "true"
+                                    },
+                                    {
+                                      "category": "AddonAzureBackupJobs",
+                                      "enabled": "true"
+                                    },
+                                    {
+                                      "category": "AddonAzureBackupPolicy",
+                                      "enabled": "true"
+                                    },
+                                    {
+                                      "category": "AddonAzureBackupProtectedInstance",
+                                      "enabled": "true"
+                                    },
+                                    {
+                                      "category": "AddonAzureBackupStorage",
+                                      "enabled": "true"
+                                    }
+                                  ],
+                                  "workspaceId": "[parameters('logAnalytics')]"
+                                },
+                                "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings"
+                              }
+                            ],
+                            "variables": {}
+                          }
+                        }
+                      },
                       "existenceCondition": {
                         "allOf": [
                           {
@@ -6079,93 +6168,18 @@
                             "Equals": 6
                           },
                           {
-                            "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
-                            "equals": "[parameters('logAnalytics')]"
+                            "equals": "[parameters('logAnalytics')]",
+                            "field": "Microsoft.Insights/diagnosticSettings/workspaceId"
                           }
                         ]
                       },
+                      "name": "[concat(parameters('prefix'), 'setByPolicy')]",
                       "roleDefinitionIds": [
                         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
                       ],
-                      "deployment": {
-                        "properties": {
-                          "mode": "incremental",
-                          "template": {
-                            "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                            "contentVersion": "1.0.0.0",
-                            "parameters": {
-                              "resourceName": {
-                                "type": "string"
-                              },
-                              "logAnalytics": {
-                                "type": "string"
-                              },
-                              "prefix": {
-                                "type": "string"
-                              },
-                              "location": {
-                                "type": "string"
-                              }
-                            },
-                            "variables": {},
-                            "resources": [
-                              {
-                                "type": "Microsoft.Cache/redis/providers/diagnosticSettings",
-                                "apiVersion": "2017-05-01-preview",
-                                "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), parameters('prefix'), 'setByPolicy'))]",
-                                "location": "[parameters('location')]",
-                                "dependsOn": [],
-                                "properties": {
-                                  "workspaceId": "[parameters('logAnalytics')]",
-                                  "metrics": [],
-                                  "logs": [
-                                    {
-                                      "category": "CoreAzureBackup",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupAlerts",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupJobs",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupPolicy",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupProtectedInstance",
-                                      "enabled": "true"
-                                    },
-                                    {
-                                      "category": "AddonAzureBackupStorage",
-                                      "enabled": "true"
-                                    }
-                                  ]
-                                }
-                              }
-                            ],
-                            "outputs": {}
-                          },
-                          "parameters": {
-                            "logAnalytics": {
-                              "value": "[parameters('logAnalytics')]"
-                            },
-                            "prefix": {
-                              "value": "[parameters('prefix')]"
-                            },
-                            "location": {
-                              "value": "[field('location')]"
-                            },
-                            "resourceName": {
-                              "value": "[field('name')]"
-                            }
-                          }
-                        }
-                      }
-                    }
+                      "type": "Microsoft.Insights/diagnosticSettings"
+                    },
+                    "effect": "deployIfNotExists"
                   }
                 }
               }
