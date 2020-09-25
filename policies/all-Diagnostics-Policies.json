@@ -3955,6 +3955,14 @@
             "description": "Select the Log Analytics workspace from dropdown list",
             "strongType": "omsWorkspace"
           }
+        },
+        "prefix": {
+          "type": "String",
+          "metadata": {
+            "displayName": "Diagnostics settings name prefix",
+            "description": "(Optional) Provide a prefix for the Diagnostics settings name"
+          },
+          "defaultValue": ""
         }
       },
       "policyRule": {
@@ -3997,10 +4005,6 @@
                 {
                   "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
                   "notEquals": "[parameters('logAnalytics')]"
-                },
-                {
-                  "field": "Microsoft.Insights/diagnosticSettings/logAnalyticsDestinationType",
-                  "equals": "Dedicated"
                 }
               ]
             },
@@ -4032,11 +4036,11 @@
                     {
                       "type": "Microsoft.RecoveryServices/vaults/providers/diagnosticSettings",
                       "apiVersion": "2017-05-01-preview",
-                      "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', 'setByPolicy')]",
+                      "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
                       "dependsOn": [],
+                      "location": "[parameters('location')]",
                       "properties": {
                         "workspaceId": "[parameters('logAnalytics')]",
-                        "logAnalyticsDestinationType": "Dedicated",
                         "metrics": [],
                         "logs": [
                           {

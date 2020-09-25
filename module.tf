@@ -1,4 +1,4 @@
-# https://github.com/Azure/Enterprise-Scale/blob/main/docs/reference/contoso/e2e-landing-zone-vwan-orchestration.parameters.json
+# https://github.com/Azure/Enterprise-Scale/blob/main/docs/reference/contoso/armTemplates/auxiliary/policies.json
 
 data azurerm_subscription primary {}
 
