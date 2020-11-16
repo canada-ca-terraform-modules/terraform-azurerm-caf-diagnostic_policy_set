@@ -12,22 +12,33 @@ module Project-Diagnostic-Policy {
 
 ```
 
-## Inputs 
+## Requirements
 
-| Name                    | Type   | Default | Description                                                                                                                          |
-| ----------------------- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| log_analytics_workspace | object | None    | (Required) The log analytics workspace object where to send the diagnostics logs. Changing this forces a new resource to be created. |
-| env                     | string | None    | (Required) env name                                                                                                                  |
-| userDefinedString       | string | None    | (Required) userDefinedString to be Used.                                                                                             |
-| management_group_name   | string | None    | (Optional) The name of the Management Group where this policy should be defined. Changing this forces a new resource to be created.  |
-| policy_name_postfix     | string | None    | (Optional) Append string to end of policy names                                                                                      |
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+| azurerm | >= 2.34.0 |
 
-## Parameters
+## Providers
+
+| Name | Version |
+|------|---------|
+| azurerm | >= 2.34.0 |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| env | You can use a prefix to add to the list of resource groups you want to create | `string` | n/a | yes |
+| log\_analytics\_workspace | Log analytics workspace object | `any` | n/a | yes |
+| userDefinedString | UserDefinedString part of the name of the resource | `string` | n/a | yes |
+| management\_group\_name | The name of the Management Group where this policy should be defined. Changing this forces a new resource to be created. | `string` | `null` | no |
+| policy\_name\_postfix | The postfix value to append at the end of the generated resource name | `string` | `""` | no |
 
 ## Outputs
-| Name                  | Type   | Description                                    |
-| --------------------- | ------ | ---------------------------------------------- |
-| object | object | Returns the full policy_set_definition object. |
-| policy_set_definition | object | Returns the full policy_set_definition object. |
-| name     | string | Returns the policy_set_definition name      |
-| id     | string | Returns the policy_set_definition id      |
+
+| Name | Description |
+|------|-------------|
+| object | Returns the policy\_set\_definition object created |
+| policy\_set\_definition | Returns the policy\_set\_definition object created |
+
