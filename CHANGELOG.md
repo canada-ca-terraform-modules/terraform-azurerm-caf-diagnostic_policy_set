@@ -85,3 +85,13 @@ IMPROVEMENTS:
 BUGS:
 
 * Update RecoveryVault policy definition to resolv an error
+
+## v1.1.0 (Jun 2021)
+
+FEATURES: 
+
+IMPROVEMENTS:
+
+BUGS:
+
+* Update `azurerm_policy_definition` to fix deprecation warning regarding the parameters value used in past releases
