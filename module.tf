@@ -40,10 +40,12 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   dynamic "policy_definition_reference" {
     for_each = jsondecode(local.policies_json)
     content {
-      parameter_values = jsonencode({
+      parameter_values     = <<VALUE
+      {
         "logAnalytics" = "[parameters('logAnalytics')]"
         "prefix"       = "[parameters('prefix')]"
-      })
+      }
+      VALUE
       policy_definition_id = var.management_group_name == null ? "/subscriptions/${local.subscriptionID}/providers/Microsoft.Authorization/policyDefinitions/${policy_definition_reference.value.Name}${var.policy_name_postfix}" : "/providers/Microsoft.Management/managementGroups/${var.management_group_name}/providers/Microsoft.Authorization/policyDefinitions/${policy_definition_reference.value.Name}${var.policy_name_postfix}"
     }
   }
