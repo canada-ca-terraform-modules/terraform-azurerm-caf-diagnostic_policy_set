@@ -36,7 +36,7 @@ resource "azurerm_policy_set_definition" "policy_set_definition" {
   display_name          = "${local.policy_set_name}${var.policy_name_postfix}"
   description           = "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace."
   management_group_name = var.management_group_name == null ? null : var.management_group_name
-  parameters            = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
+  parameters_values     = file("${path.module}/policies/Deploy-Diagnostics-parameters.json")
   dynamic "policy_definition_reference" {
     for_each = jsondecode(local.policies_json)
     content {
