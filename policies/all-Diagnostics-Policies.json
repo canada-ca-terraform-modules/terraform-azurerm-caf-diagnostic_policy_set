@@ -4695,10 +4695,10 @@
     "ResourceType": "Microsoft.Management/managementGroups",
     "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
     "Properties": {
-      "displayName": "Deploy-Diagnostics-SQLElasticPools",
+      "displayName": "Deploy-Diagnostics-SQLDBs",
       "policyType": "Custom",
-      "mode": "All",
-      "description": "Apply diagnostic settings for SQL Elastic Pools - Log Analytics",
+      "mode": "Indexed",
+      "description": "Apply diagnostic settings for SQL DBs - Log Analytics",
       "parameters": {
         "logAnalytics": {
           "type": "String",
@@ -4707,20 +4707,32 @@
             "description": "Select the Log Analytics workspace from dropdown list",
             "strongType": "omsWorkspace"
           }
+        },
+        "prefix": {
+          "type": "String",
+          "metadata": {
+            "displayName": "Diagnostics settings name prefix",
+            "description": "(Optional) Provide a prefix for the Diagnostics settings name"
+          },
+          "defaultValue": ""
         }
       },
       "policyRule": {
         "if": {
           "field": "type",
-          "equals": "Microsoft.Sql/servers/elasticPools"
+          "equals": "Microsoft.Sql/servers/databases"
         },
         "then": {
-          "effect": "deployIfNotExists",
+          "effect": "DeployIfNotExists",
           "details": {
             "type": "Microsoft.Insights/diagnosticSettings",
             "name": "[concat(parameters('prefix'), 'setByPolicy')]",
             "existenceCondition": {
               "allOf": [
+                {
+                  "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+                  "equals": "true"
+                },
                 {
                   "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
                   "equals": "true"
@@ -4736,28 +4748,28 @@
             ],
             "deployment": {
               "properties": {
-                "mode": "incremental",
+                "mode": "Incremental",
                 "template": {
                   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
                   "contentVersion": "1.0.0.0",
                   "parameters": {
                     "resourceName": {
-                      "type": "string"
+                      "type": "String"
                     },
                     "logAnalytics": {
-                      "type": "string"
-                    },
-                    "prefix": {
-                      "type": "string"
+                      "type": "String"
                     },
                     "location": {
+                      "type": "String"
+                    },
+                    "prefix": {
                       "type": "string"
                     }
                   },
                   "variables": {},
                   "resources": [
                     {
-                      "type": "Microsoft.Sql/servers/elasticPools/providers/diagnosticSettings",
+                      "type": "Microsoft.Sql/servers/databases/providers/diagnosticSettings",
                       "apiVersion": "2017-05-01-preview",
                       "name": "[concat(parameters('resourceName'), '/', 'Microsoft.Insights/', parameters('prefix'), 'setByPolicy')]",
                       "location": "[parameters('location')]",
@@ -4767,7 +4779,7 @@
                         "metrics": [
                           {
                             "category": "AllMetrics",
-                            "enabled": true,
+                            "enabled": "True",
                             "retentionPolicy": {
                               "days": 0,
                               "enabled": false
@@ -4775,24 +4787,69 @@
                             "timeGrain": null
                           }
                         ],
-                        "logs": []
+                        "logs": [
+                          {
+                            "category": "SQLInsights",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "AutomaticTuning",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "DevOpsOperationsAudit",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "QueryStoreRuntimeStatistics",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "QueryStoreWaitStatistics",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "Errors",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "DatabaseWaitStatistics",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "Timeouts",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "Blocks",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "Deadlocks",
+                            "enabled": "True"
+                          },
+                          {
+                            "category": "SQLSecurityAuditEvents",
+                            "enabled": "True"
+                          }
+                        ]
                       }
                     }
                   ],
                   "outputs": {}
                 },
                 "parameters": {
+                  "location": {
+                    "value": "[field('location')]"
+                  },
                   "logAnalytics": {
                     "value": "[parameters('logAnalytics')]"
                   },
                   "prefix": {
                     "value": "[parameters('prefix')]"
                   },
-                  "location": {
-                    "value": "[field('location')]"
-                  },
                   "resourceName": {
-                    "value": "[field('name')]"
+                    "value": "[field('fullName')]"
                   }
                 }
               }
