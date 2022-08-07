@@ -13,7 +13,7 @@ variable "log_analytics_workspace" {
   type        = any
 }
 
-variable "management_group_name" {
+variable "management_group_id" {
   description = "The name of the Management Group where this policy should be defined. Changing this forces a new resource to be created."
   type        = string
   default     = null
