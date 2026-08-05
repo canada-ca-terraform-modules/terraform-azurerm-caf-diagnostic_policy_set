@@ -1,3 +1,4 @@
+<!-- BEGIN_TF_DOCS -->
 # Deploy Diagnostics Policies and PolicySet
 
 Reference the module to a specific version (recommended):
@@ -24,7 +25,7 @@ module Project-Diagnostic-Policy {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 5.0.1 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 5.0 |
 
 ## Modules
 
@@ -55,3 +56,4 @@ No modules.
 |------|-------------|
 | <a name="output_object"></a> [object](#output\_object) | Returns the policy\_set\_definition object created |
 | <a name="output_policy_set_definition"></a> [policy\_set\_definition](#output\_policy\_set\_definition) | Returns the policy\_set\_definition object created |
+<!-- END_TF_DOCS -->
