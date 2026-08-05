@@ -1,6 +1,9 @@
 #  Local .terraform directories
 **/.terraform/*
 
+# .terraform.lock.hcl (module repo: not a root config, don't pin provider hashes)
+.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -11,9 +14,23 @@
 # .tfvars files
 *.tfvars
 
+# crash logs and overrides
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
 #vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
