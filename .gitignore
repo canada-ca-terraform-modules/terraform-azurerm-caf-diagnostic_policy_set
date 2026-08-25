@@ -13,6 +13,8 @@
 
 # .tfvars files
 *.tfvars
+# keep the tracked live-test fixture
+!test/live/config/*.tfvars
 
 # crash logs and overrides
 crash.log
