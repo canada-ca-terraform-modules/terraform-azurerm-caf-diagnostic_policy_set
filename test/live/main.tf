@@ -1,3 +1,4 @@
+# no-op touch: triggers live-test.yml's path filter for the workflow-only PR
 terraform {
   required_version = ">= 1.9"
   required_providers {
